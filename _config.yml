@@ -1,0 +1,22 @@
+# Site settings
+title: Tech Zone
+header-img: img/home-bg.jpg
+email: vishwambharu@gmail.com
+copyright_name: vishwambharu@gmail.com
+description: "Learning learning & re-learning"
+#baseurl: "/startbootstrap-clean-blog-jekyll"
+baseurl: ""
+#url: "http://yourdomain.com"
+twitter_username: vishwambhar
+github_username:  vishwambhar
+facebook_username:  vishwambhar.upadhyay
+email_username:  vishwambharu@gmail.com
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+paginate: 5
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+
+gems: [jekyll-paginate, jekyll-feed]

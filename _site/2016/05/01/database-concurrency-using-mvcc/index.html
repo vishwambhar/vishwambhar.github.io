@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Learning learning & re-learning">
+
+    <title>Database Concurrency using MVCC - Tech Zone</title>
+
+    <link rel="canonical" href="http://yourdomain.com/2016/05/01/database-concurrency-using-mvcc/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://yourdomain.com/feed.xml" title="Tech Zone" />
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Tech Zone</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                
+				
+                <li>
+                    <a href="/about/">About</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/contact/">Contact</a>
+                </li>
+				
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header" style="background-image: url('/img/post-bg-03.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Database Concurrency using MVCC</h1>
+                    
+                    <h2 class="subheading">MVCC stands for multi-version concurrency control. Whole idea behind MVCC is to improve concurrency of database system by reducing contention and locks.</h2>
+                    
+                    <span class="meta">Posted by vishwambharu@gmail.com on May 1, 2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<p>Relational databases support principles of <a href="https://en.wikipedia.org/wiki/ACID">ACID model</a> for reliability and consistency. ACID architectural pattern guarantees that the database transaction executes reliably. <strong>'Isolated'</strong> principle states that in case of multiple transactions occurring simultaneously, one transaction shouldn’t see the effects of other in-progress transaction.</p>
+
+<p>Isolation among multiple transactions can be easily achieved with locks. If a session is reading an item, lock can stop another session from modifying the same item and if a session is modifying an item, lock can stop another session from reading the it. It is simple but very costly for a concurrent application. Lock based applications leads to high contention and low concurrency.</p>
+
+<p>To improve concurrency without too many locks, almost all relation database systems and some NoSQL stores such as HBase, use <em>multi-version concurrency control</em> (MVCC) architectural pattern</p>
+
+<h2 class="section-heading">What is MVCC and how it helps improve concurrency?</h2>
+
+<p>MVCC stands for multi-version concurrency control. Whole idea behind MVCC is to improve concurrency of database system by reducing contention and locks.</p>
+
+<blockquote>Readers shouldn’t block writers and writers shouldn’t block reader. MVCC works towards achieving this goal.</blockquote>
+
+<p>In MVCC model, database systems keep multiple versions of same data. So, rather than overwriting an existing data, database engine marks the existing data obsolete and adds a newer version. Database systems use either timestamp or some sort of change identifier to adopt versioning of data. So, with versioning at place, database system can construct a snapshot view of database any given point in time. And every session sees it’s own snapshot view of database.</p>
+
+<p><a href="#">
+    <img src="/img/mvcc.jpg" alt="MVCC Image" />
+</a>
+<span class="caption text-muted">Session 1 and Session 2 are trying to access database field ‘item’.</span></p>
+
+<p>
+   <p>Session 1 : update operation starts at time t1</p>
+   <p>Session 2 : read operation starts at time t2 (&gt;t1)</p>
+   <p>Session 1 creates another revision of ‘item’, however, Session 2 still reads old revision of ‘item’ as ver:2 was created after Session 1 started.</p>
+</p>
+
+<h2 class="section-heading">Points to be noted ...</h2>
+<p>
+<ul type="disc">
+<li>No in-place edits of data. Since existing data is never edited, there is no reason to apply a lock. This dramatically improves the performance of database systems.</li>
+<li>Versioning system helps to identify latest revision of data easily.</li>
+<li>Old versions are pruned offline based on how many old versions need to be maintained for the application to work correctly.</li>
+</ul>
+</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/05/02/embedding-jetty-in-your-web-app/" data-toggle="tooltip" data-placement="top" title="Embedding Jetty In Your Web App">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://twitter.com/vishwambhar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://www.facebook.com/vishwambhar.upadhyay">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/vishwambhar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:vishwambharu@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; vishwambharu@gmail.com 2016</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

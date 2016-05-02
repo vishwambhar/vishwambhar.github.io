@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.0.1">Jekyll</generator><link href="http://yourdomain.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://yourdomain.com/" rel="alternate" type="text/html" /><updated>2016-05-02T06:36:01+00:00</updated><id>http://yourdomain.com/</id><title>Tech Zone</title><subtitle>Learning learning &amp; re-learning</subtitle><entry><title>Embedding Jetty In Your Web App</title><link href="http://yourdomain.com/2016/05/02/embedding-jetty-in-your-web-app/" rel="alternate" type="text/html" title="Embedding Jetty In Your Web App" /><published>2016-05-02T00:00:00+00:00</published><updated>2016-05-02T00:00:00+00:00</updated><id>http://yourdomain.com/2016/05/02/embedding-jetty-in-your-web-app</id><content type="html" xml:base="http://yourdomain.com/2016/05/02/embedding-jetty-in-your-web-app/"></content><summary></summary></entry><entry><title>Database Concurrency using MVCC</title><link href="http://yourdomain.com/2016/05/01/database-concurrency-using-mvcc/" rel="alternate" type="text/html" title="Database Concurrency using MVCC" /><published>2016-05-01T12:02:00+00:00</published><updated>2016-05-01T12:02:00+00:00</updated><id>http://yourdomain.com/2016/05/01/database-concurrency-using-mvcc</id><content type="html" xml:base="http://yourdomain.com/2016/05/01/database-concurrency-using-mvcc/">&lt;p&gt;Relational databases support principles of &lt;a href=&quot;https://en.wikipedia.org/wiki/ACID&quot;&gt;ACID model&lt;/a&gt; for reliability and consistency. ACID architectural pattern guarantees that the database transaction executes reliably. &lt;strong&gt;&#39;Isolated&#39;&lt;/strong&gt; principle states that in case of multiple transactions occurring simultaneously, one transaction shouldn’t see the effects of other in-progress transaction.&lt;/p&gt;
+
+&lt;p&gt;Isolation among multiple transactions can be easily achieved with locks. If a session is reading an item, lock can stop another session from modifying the same item and if a session is modifying an item, lock can stop another session from reading the it. It is simple but very costly for a concurrent application. Lock based applications leads to high contention and low concurrency.&lt;/p&gt;
+
+&lt;p&gt;To improve concurrency without too many locks, almost all relation database systems and some NoSQL stores such as HBase, use &lt;em&gt;multi-version concurrency control&lt;/em&gt; (MVCC) architectural pattern&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;What is MVCC and how it helps improve concurrency?&lt;/h2&gt;
+
+&lt;p&gt;MVCC stands for multi-version concurrency control. Whole idea behind MVCC is to improve concurrency of database system by reducing contention and locks.&lt;/p&gt;
+
+&lt;blockquote&gt;Readers shouldn’t block writers and writers shouldn’t block reader. MVCC works towards achieving this goal.&lt;/blockquote&gt;
+
+&lt;p&gt;In MVCC model, database systems keep multiple versions of same data. So, rather than overwriting an existing data, database engine marks the existing data obsolete and adds a newer version. Database systems use either timestamp or some sort of change identifier to adopt versioning of data. So, with versioning at place, database system can construct a snapshot view of database any given point in time. And every session sees it’s own snapshot view of database.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot;&gt;
+    &lt;img src=&quot;/img/mvcc.jpg&quot; alt=&quot;MVCC Image&quot; /&gt;
+&lt;/a&gt;
+&lt;span class=&quot;caption text-muted&quot;&gt;Session 1 and Session 2 are trying to access database field ‘item’.&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;
+   &lt;p&gt;Session 1 : update operation starts at time t1&lt;/p&gt;
+   &lt;p&gt;Session 2 : read operation starts at time t2 (&amp;gt;t1)&lt;/p&gt;
+   &lt;p&gt;Session 1 creates another revision of ‘item’, however, Session 2 still reads old revision of ‘item’ as ver:2 was created after Session 1 started.&lt;/p&gt;
+&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Points to be noted ...&lt;/h2&gt;
+&lt;p&gt;
+&lt;ul type=&quot;disc&quot;&gt;
+&lt;li&gt;No in-place edits of data. Since existing data is never edited, there is no reason to apply a lock. This dramatically improves the performance of database systems.&lt;/li&gt;
+&lt;li&gt;Versioning system helps to identify latest revision of data easily.&lt;/li&gt;
+&lt;li&gt;Old versions are pruned offline based on how many old versions need to be maintained for the application to work correctly.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/p&gt;</content><author><name>vishwambharu@gmail.com</name></author><summary>Relational databases support principles of ACID model for reliability and consistency. ACID architectural pattern guarantees that the database transaction executes reliably. &#39;Isolated&#39; principle states that in case of multiple transactions occurring simultaneously, one transaction shouldn’t see the effects of other in-progress transaction.</summary></entry></feed>
