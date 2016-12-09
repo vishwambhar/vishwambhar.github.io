@@ -6,4 +6,4 @@ ADD Gemfile /tmp/
 RUN bundle install
 
 # Change back to the Jekyll site directory
-WORKDIR /Users/vishyoo/personal/git/repo/vishwambhar.github.io
+WORKDIR /Users/vishyoo/Documents/personal/git/vishwambhar.github.io
