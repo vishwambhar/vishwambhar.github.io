@@ -1,4 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://0.0.0.0:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2016-12-09T18:57:47+00:00</updated><id>http://0.0.0.0:4000//</id><title type="html">Tech Zone</title><subtitle>Learning learning &amp; re-learning</subtitle><entry><title type="html">Various ways to Iterate Java Map Entries</title><link href="http://0.0.0.0:4000/2016/05/08/various-ways-to-iterate-java-map-entries/" rel="alternate" type="text/html" title="Various ways to Iterate Java Map Entries" /><published>2016-05-08T12:10:00+00:00</published><updated>2016-05-08T12:10:00+00:00</updated><id>http://0.0.0.0:4000/2016/05/08/various-ways-to-iterate-java-map-entries</id><content type="html" xml:base="http://0.0.0.0:4000/2016/05/08/various-ways-to-iterate-java-map-entries/">&lt;h2 class=&quot;section-heading&quot;&gt;Iterating a Map using an Iterator&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://0.0.0.0:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2016-12-12T05:36:49+00:00</updated><id>http://0.0.0.0:4000//</id><title type="html">Tech Zone</title><subtitle>Learning learning &amp; re-learning</subtitle><entry><title type="html">Testing Out TensorFlow Environment</title><link href="http://0.0.0.0:4000/2016/12/11/testing-out-tensoflow-environment/" rel="alternate" type="text/html" title="Testing Out TensorFlow Environment" /><published>2016-12-11T20:40:00+00:00</published><updated>2016-12-11T20:40:00+00:00</updated><id>http://0.0.0.0:4000/2016/12/11/testing-out-tensoflow-environment</id><content type="html" xml:base="http://0.0.0.0:4000/2016/12/11/testing-out-tensoflow-environment/">&lt;p&gt;Automated driving sounds cool, so I'm too excited to learn something about the technologies involved in this space. And one of the first things I had to do was to learn &lt;a href=&quot;https://tensorflow.org&quot;&gt; TensorFlow.&lt;/a&gt; 
+&lt;p&gt;
+Here are the steps I used to install TensorFlow on macOS Sierra.
+&lt;/p&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;ul type=&quot;disc&quot;&gt;
+&lt;li&gt;Install &lt;a href=&quot;https://docs.continuum.io/anaconda/install&quot;&gt;Anaconda.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Run the following steps to setup Anaconda environment:
+&lt;!-- HTML generated using hilite.me --&gt;&lt;div style=&quot;background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;&quot;&gt;&lt;pre style=&quot;margin: 0; line-height: 125%&quot;&gt;conda create &lt;span style=&quot;color: #333333&quot;&gt;--&lt;/span&gt;name&lt;span style=&quot;color: #333333&quot;&gt;=&lt;/span&gt;IntroToTensorFlow python&lt;span style=&quot;color: #333333&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color: #0000DD; font-weight: bold&quot;&gt;3&lt;/span&gt; anaconda
+source activate IntroToTensorFlow
+conda install &lt;span style=&quot;color: #333333&quot;&gt;-&lt;/span&gt;c conda&lt;span style=&quot;color: #333333&quot;&gt;-&lt;/span&gt;forge tensorflow
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;Run the following code in your favourate python code editor to make sure TensorFlow environment is working as expected:
+&lt;!-- HTML generated using hilite.me --&gt;&lt;div style=&quot;background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;&quot;&gt;&lt;pre style=&quot;margin: 0; line-height: 125%&quot;&gt;&lt;span style=&quot;color: #008800; font-weight: bold&quot;&gt;import&lt;/span&gt; &lt;span style=&quot;color: #0e84b5; font-weight: bold&quot;&gt;tensorflow&lt;/span&gt; &lt;span style=&quot;color: #008800; font-weight: bold&quot;&gt;as&lt;/span&gt; &lt;span style=&quot;color: #0e84b5; font-weight: bold&quot;&gt;tf&lt;/span&gt;
+&lt;span style=&quot;color: #008800; font-weight: bold&quot;&gt;import&lt;/span&gt; &lt;span style=&quot;color: #0e84b5; font-weight: bold&quot;&gt;numpy&lt;/span&gt; &lt;span style=&quot;color: #008800; font-weight: bold&quot;&gt;as&lt;/span&gt; &lt;span style=&quot;color: #0e84b5; font-weight: bold&quot;&gt;np&lt;/span&gt;
+&lt;span style=&quot;color: #008800; font-weight: bold&quot;&gt;import&lt;/span&gt; &lt;span style=&quot;color: #0e84b5; font-weight: bold&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span style=&quot;color: #008800; font-weight: bold&quot;&gt;as&lt;/span&gt; &lt;span style=&quot;color: #0e84b5; font-weight: bold&quot;&gt;plt&lt;/span&gt;
+&lt;span style=&quot;color: #333333&quot;&gt;%&lt;/span&gt;matplotlib inline
+
+&lt;span style=&quot;color: #888888&quot;&gt;# 2x5 Tensor of randomally distributed numbers&lt;/span&gt;
+normal &lt;span style=&quot;color: #333333&quot;&gt;=&lt;/span&gt; tf&lt;span style=&quot;color: #333333&quot;&gt;.&lt;/span&gt;random_normal([&lt;span style=&quot;color: #0000DD; font-weight: bold&quot;&gt;2&lt;/span&gt;, &lt;span style=&quot;color: #0000DD; font-weight: bold&quot;&gt;5&lt;/span&gt;], mean&lt;span style=&quot;color: #333333&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color: #6600EE; font-weight: bold&quot;&gt;2.0&lt;/span&gt;, stddev&lt;span style=&quot;color: #333333&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color: #6600EE; font-weight: bold&quot;&gt;4.0&lt;/span&gt;)
+&lt;span style=&quot;color: #008800; font-weight: bold&quot;&gt;with&lt;/span&gt; tf&lt;span style=&quot;color: #333333&quot;&gt;.&lt;/span&gt;Session() &lt;span style=&quot;color: #008800; font-weight: bold&quot;&gt;as&lt;/span&gt; sess:
+    out &lt;span style=&quot;color: #333333&quot;&gt;=&lt;/span&gt; sess&lt;span style=&quot;color: #333333&quot;&gt;.&lt;/span&gt;run(normal)
+    &lt;span style=&quot;color: #007020&quot;&gt;print&lt;/span&gt;(out) &lt;span style=&quot;color: #888888&quot;&gt;# print the 2x5 matrix&lt;/span&gt;
+    x, y &lt;span style=&quot;color: #333333&quot;&gt;=&lt;/span&gt; out &lt;span style=&quot;color: #888888&quot;&gt;# split up the 2x5 matrix into two 1x5 vectors, x and y&lt;/span&gt;
+    plt&lt;span style=&quot;color: #333333&quot;&gt;.&lt;/span&gt;scatter(x, y) &lt;span style=&quot;color: #888888&quot;&gt;# create scatter plot with x and y&lt;/span&gt;
+    plt&lt;span style=&quot;color: #333333&quot;&gt;.&lt;/span&gt;show() &lt;span style=&quot;color: #888888&quot;&gt;# show scatter plot&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+You should see the scatter plot output something similar to this:
+
+&lt;a href=&quot;#&quot;&gt;
+    &lt;img src=&quot;/img/testing_out_tensorflow_environment_pic1.png&quot; alt=&quot;Output&quot; /&gt;
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/p&gt;</content><author><name>vishwambharu@gmail.com</name></author><summary type="html">Automated driving sounds cool, so I'm too excited to learn something about the technologies involved in this space. And one of the first things I had to do was to learn  TensorFlow. 
+
+Here are the steps I used to install TensorFlow on macOS Sierra.</summary></entry><entry><title type="html">Various ways to Iterate Java Map Entries</title><link href="http://0.0.0.0:4000/2016/05/08/various-ways-to-iterate-java-map-entries/" rel="alternate" type="text/html" title="Various ways to Iterate Java Map Entries" /><published>2016-05-08T12:10:00+00:00</published><updated>2016-05-08T12:10:00+00:00</updated><id>http://0.0.0.0:4000/2016/05/08/various-ways-to-iterate-java-map-entries</id><content type="html" xml:base="http://0.0.0.0:4000/2016/05/08/various-ways-to-iterate-java-map-entries/">&lt;h2 class=&quot;section-heading&quot;&gt;Iterating a Map using an Iterator&lt;/h2&gt;
 &lt;!-- HTML generated using hilite.me --&gt;
 &lt;div style=&quot;background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;pre style=&quot;margin: 0; line-height: 125%&quot;&gt; 1
  2

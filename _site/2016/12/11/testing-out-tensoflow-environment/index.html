@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Learning learning & re-learning">
 
-    <title>Tech Zone</title>
+    <title>Testing Out TensorFlow Environment - Tech Zone</title>
 
-    <link rel="canonical" href="http://0.0.0.0:4000/">
+    <link rel="canonical" href="http://0.0.0.0:4000/2016/12/11/testing-out-tensoflow-environment/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -81,75 +81,85 @@
 </nav>
 
 
-    <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <!-- Post Header -->
+<header class="intro-header" style="background-image: url('/img/post-bg-03.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>Tech Zone</h1>
-                    <hr class="small">
-                    <span class="subheading">"Learning Learning & Re-learning ..."</span>
+                <div class="post-heading">
+                    <h1>Testing Out TensorFlow Environment</h1>
+                    
+                    <h2 class="subheading">Testing Out TensorFlow Environment.</h2>
+                    
+                    <span class="meta">Posted by vishwambharu@gmail.com on December 11, 2016</span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-	<div class="row">
-		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-			
-<div class="post-preview">
-    <a href="/2016/12/11/testing-out-tensoflow-environment/">
-        <h2 class="post-title">            Testing Out TensorFlow Environment
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Testing Out TensorFlow Environment.
-        </h3>
-        
-    </a>
-    <p class="post-meta">Posted by vishwambharu@gmail.com on December 11, 2016</p>
-</div>
-<hr>
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-<div class="post-preview">
-    <a href="/2016/05/08/various-ways-to-iterate-java-map-entries/">
-        <h2 class="post-title">            Various ways to Iterate Java Map Entries
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Over period of time java has added new constructs to do same task more succinctly and efficiently. And same holds good for iterating a map. In this short tutorial let's look at old and latest ways to iterate a map.
-        </h3>
-        
-    </a>
-    <p class="post-meta">Posted by vishwambharu@gmail.com on May 8, 2016</p>
-</div>
-<hr>
+				<p>Automated driving sounds cool, so I'm too excited to learn something about the technologies involved in this space. And one of the first things I had to do was to learn <a href="https://tensorflow.org"> TensorFlow.</a> 
+<p>
+Here are the steps I used to install TensorFlow on macOS Sierra.
+</p>
+</p>
 
-<div class="post-preview">
-    <a href="/2016/05/01/database-concurrency-using-mvcc/">
-        <h2 class="post-title">            Database Concurrency using MVCC
-        </h2>
-        
-        <h3 class="post-subtitle">
-            MVCC stands for multi-version concurrency control. Whole idea behind MVCC is to improve concurrency of database system by reducing contention and locks.
-        </h3>
-        
-    </a>
-    <p class="post-meta">Posted by vishwambharu@gmail.com on May 1, 2016</p>
-</div>
-<hr>
+<p>
+<ul type="disc">
+<li>Install <a href="https://docs.continuum.io/anaconda/install">Anaconda.</a></li>
+<li>Run the following steps to setup Anaconda environment:
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">conda create <span style="color: #333333">--</span>name<span style="color: #333333">=</span>IntroToTensorFlow python<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">3</span> anaconda
+source activate IntroToTensorFlow
+conda install <span style="color: #333333">-</span>c conda<span style="color: #333333">-</span>forge tensorflow
+</pre></div>
+</li>
+<li>Run the following code in your favourate python code editor to make sure TensorFlow environment is working as expected:
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">tensorflow</span> <span style="color: #008800; font-weight: bold">as</span> <span style="color: #0e84b5; font-weight: bold">tf</span>
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">numpy</span> <span style="color: #008800; font-weight: bold">as</span> <span style="color: #0e84b5; font-weight: bold">np</span>
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">matplotlib.pyplot</span> <span style="color: #008800; font-weight: bold">as</span> <span style="color: #0e84b5; font-weight: bold">plt</span>
+<span style="color: #333333">%</span>matplotlib inline
 
+<span style="color: #888888"># 2x5 Tensor of randomally distributed numbers</span>
+normal <span style="color: #333333">=</span> tf<span style="color: #333333">.</span>random_normal([<span style="color: #0000DD; font-weight: bold">2</span>, <span style="color: #0000DD; font-weight: bold">5</span>], mean<span style="color: #333333">=</span><span style="color: #6600EE; font-weight: bold">2.0</span>, stddev<span style="color: #333333">=</span><span style="color: #6600EE; font-weight: bold">4.0</span>)
+<span style="color: #008800; font-weight: bold">with</span> tf<span style="color: #333333">.</span>Session() <span style="color: #008800; font-weight: bold">as</span> sess:
+    out <span style="color: #333333">=</span> sess<span style="color: #333333">.</span>run(normal)
+    <span style="color: #007020">print</span>(out) <span style="color: #888888"># print the 2x5 matrix</span>
+    x, y <span style="color: #333333">=</span> out <span style="color: #888888"># split up the 2x5 matrix into two 1x5 vectors, x and y</span>
+    plt<span style="color: #333333">.</span>scatter(x, y) <span style="color: #888888"># create scatter plot with x and y</span>
+    plt<span style="color: #333333">.</span>show() <span style="color: #888888"># show scatter plot</span>
+</pre></div>
 
-<!-- Pager -->
+You should see the scatter plot output something similar to this:
+
+<a href="#">
+    <img src="/img/testing_out_tensorflow_environment_pic1.png" alt="Output" />
+</a>
+</li>
+</ul>
+</p>
 
 
-		</div>
-	</div>
-</div>
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/05/08/various-ways-to-iterate-java-map-entries/" data-toggle="tooltip" data-placement="top" title="Various ways to Iterate Java Map Entries">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
 
 <hr>
 
